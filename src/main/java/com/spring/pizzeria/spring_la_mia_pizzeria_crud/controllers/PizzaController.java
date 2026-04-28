@@ -50,7 +50,7 @@ public class PizzaController {
 
     @GetMapping("/{id}")
     public String show(@PathVariable int id, Model model) {
-        Pizza pizza = pizzaService.getById(id);
+        Pizza pizza = pizzaService.getById(id).get();
 
         model.addAttribute(pizza);
 
