@@ -1,8 +1,10 @@
 package com.spring.pizzeria.spring_la_mia_pizzeria_crud.restControllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spring.pizzeria.spring_la_mia_pizzeria_crud.models.Pizza;
 import com.spring.pizzeria.spring_la_mia_pizzeria_crud.service.PizzaService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -32,6 +36,18 @@ public class PizzaRestController {
         List<Pizza> pizzas = service.findAll();
 
         return pizzas;
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<Pizza> show(@PathVariable Integer id) {
+        
+        Optional<Pizza> pizzaOpt = service.getById(id);
+        
+        if (pizzaOpt.isPresent()) {
+            return new ResponseEntity<Pizza>(pizzaOpt.get(), HttpStatus.OK);
+        }
+
+        return new ResponseEntity<Pizza>(HttpStatus.NOT_FOUND);
     }
     
 }
