@@ -15,7 +15,6 @@ import com.spring.pizzeria.spring_la_mia_pizzeria_crud.repositories.IngredientsR
 import com.spring.pizzeria.spring_la_mia_pizzeria_crud.repositories.OfferRepository;
 import com.spring.pizzeria.spring_la_mia_pizzeria_crud.repositories.PizzaRepository;
 import com.spring.pizzeria.spring_la_mia_pizzeria_crud.service.PizzaService;
-import com.spring.pizzeria.spring_la_mia_pizzeria_crud.pizzaService.PizzapizzaService;
 
 import jakarta.validation.Valid;
 
@@ -29,9 +28,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Controller
 @RequestMapping("/pizzas")
 public class PizzaController {
-
-    @Autowired
-    private PizzaRepository pizzasRepo;
 
     @Autowired
     private PizzaService pizzaService;
