@@ -29,8 +29,8 @@ public class PizzaService {
         return repo.findByNameContaining(name);
     }
 
-    public Pizza getById(Integer id) {
-        return repo.findById(id).get();
+    public Optional<Pizza> getById(Integer id) {
+        return repo.findById(id);
     }
 
     public void save(Pizza pizza) {
