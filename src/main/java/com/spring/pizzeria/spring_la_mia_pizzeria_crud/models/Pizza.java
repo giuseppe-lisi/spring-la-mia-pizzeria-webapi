@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.hibernate.annotations.ManyToAny;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -50,9 +52,11 @@ public class Pizza {
   private BigDecimal price;
 
   @OneToMany( mappedBy = "pizza", cascade = CascadeType.REMOVE )
+  @JsonManagedReference
   private List<Offer> offers;
 
   @ManyToMany
+  @JsonManagedReference
   @JoinTable( name = "pizza_ingredient",
     joinColumns = @JoinColumn( name = "pizza_id" ),
     inverseJoinColumns = @JoinColumn( name = "ingredient_id" ) 
