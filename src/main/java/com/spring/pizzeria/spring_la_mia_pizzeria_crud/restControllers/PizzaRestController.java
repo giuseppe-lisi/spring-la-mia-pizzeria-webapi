@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,6 +32,7 @@ public class PizzaRestController {
     @Autowired 
     public PizzaService service; 
 
+    // index
     @GetMapping
     public List<Pizza> index(@RequestParam(required = false) String name) {
         if (name != null) {
@@ -43,7 +45,8 @@ public class PizzaRestController {
         return pizzas;
     }
 
-    @GetMapping("{id}")
+    // show
+    @GetMapping("/{id}")
     public ResponseEntity<Pizza> show(@PathVariable Integer id) {
         
         Optional<Pizza> pizzaOpt = service.getById(id);
@@ -55,16 +58,34 @@ public class PizzaRestController {
         return new ResponseEntity<Pizza>(HttpStatus.NOT_FOUND);
     }
 
+    // store
     @PostMapping
     public ResponseEntity<Pizza> store(@Valid @RequestBody Pizza pizza) {
         return new ResponseEntity<Pizza>(service.save(pizza), HttpStatus.CREATED);
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity<Pizza> update(@Valid @RequestBody Pizza pizza, Integer id) {
+    // update
+    @PutMapping("/{id}")
+    public ResponseEntity<Pizza> update(@Valid @RequestBody Pizza pizza, @PathVariable Integer id) {
         pizza.setId(id);
 
         return new ResponseEntity<Pizza>(service.save(pizza) ,HttpStatus.OK);
     }
+
+    // delete
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Pizza> delete(@PathVariable Integer id) {
+
+        Optional<Pizza> pizzaOpt = service.getById(id);
+
+        if (pizzaOpt.isPresent()) {
+            service.delete(id);
+            return new ResponseEntity<Pizza>(HttpStatus.OK);
+        } 
+
+        return new ResponseEntity<Pizza>(HttpStatus.NOT_FOUND);
+
+    }
+
     
 }
