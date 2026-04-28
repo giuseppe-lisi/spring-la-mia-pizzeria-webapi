@@ -12,9 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.pizzeria.spring_la_mia_pizzeria_crud.models.Pizza;
 import com.spring.pizzeria.spring_la_mia_pizzeria_crud.service.PizzaService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -48,6 +53,18 @@ public class PizzaRestController {
         }
 
         return new ResponseEntity<Pizza>(HttpStatus.NOT_FOUND);
+    }
+
+    @PostMapping
+    public ResponseEntity<Pizza> store(@Valid @RequestBody Pizza pizza) {
+        return new ResponseEntity<Pizza>(service.save(pizza), HttpStatus.CREATED);
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<Pizza> update(@Valid @RequestBody Pizza pizza, Integer id) {
+        pizza.setId(id);
+
+        return new ResponseEntity<Pizza>(service.save(pizza) ,HttpStatus.OK);
     }
     
 }
