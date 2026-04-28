@@ -3,6 +3,7 @@ package com.spring.pizzeria.spring_la_mia_pizzeria_crud.models;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,7 +23,7 @@ public class Ingredient {
   private Integer id;
 
   @ManyToMany(mappedBy = "ingredients")
-  @JsonBackReference
+  @JsonIgnoreProperties("ingredients")
   private List<Pizza> pizzas;
 
   @NotBlank(message = "Ingrediente deve avere un nome")

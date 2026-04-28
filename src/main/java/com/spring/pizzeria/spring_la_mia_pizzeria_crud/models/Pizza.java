@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.annotations.ManyToAny;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -56,7 +57,7 @@ public class Pizza {
   private List<Offer> offers;
 
   @ManyToMany
-  @JsonManagedReference
+  @JsonIgnoreProperties("pizzas")
   @JoinTable( name = "pizza_ingredient",
     joinColumns = @JoinColumn( name = "pizza_id" ),
     inverseJoinColumns = @JoinColumn( name = "ingredient_id" ) 
