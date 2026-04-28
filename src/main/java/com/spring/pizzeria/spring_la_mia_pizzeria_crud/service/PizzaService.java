@@ -33,8 +33,9 @@ public class PizzaService {
         return repo.findById(id);
     }
 
-    public void save(Pizza pizza) {
+    public Pizza save(Pizza pizza) {
         repo.save(pizza);
+        return pizza;
     }
 
     public void delete(Integer id) {
